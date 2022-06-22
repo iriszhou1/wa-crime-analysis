@@ -16,8 +16,12 @@ import geopandas as gpd
 import numpy as np
 import seaborn as sns
 import plotly.express as px
+# import plotly.io as pio
 
 sns.set()
+
+
+SHOW_PLOTS = False
 
 
 def load_and_clean_crime_data(file_path):
@@ -112,7 +116,8 @@ def plot_top_crime_types(crime_type_df, counties, plot_title):
     by top crime type in each county. Titles the map according
     to the given plot_title.
 
-    Opens the resulting interactive map in a web browser.
+    If SHOW_PLOTS is true, opens resulting interactive map in a web browser.
+    Returns map.
     """
     map_df = counties.merge(crime_type_df, left_on='name', right_on='county')
     map_df = map_df.set_index('name')
@@ -127,7 +132,9 @@ def plot_top_crime_types(crime_type_df, counties, plot_title):
                                title=plot_title,
                                hover_name='county',
                                hover_data=['crime_type', 'prop'])
-    map.show()
+    if SHOW_PLOTS:
+        map.show()
+    return map
 
 
 def plot_crime_type_rate(crime_type, pivot_2020_df, counties):
@@ -137,7 +144,8 @@ def plot_crime_type_rate(crime_type, pivot_2020_df, counties):
     proportion of total crimes that were of that crime type in each county on
     an interactive map.
 
-    Opens the resulting interactive map in a web browser.
+    If SHOW_PLOTS is true, opens resulting interactive map in a web browser.
+    Returns map.
     """
     is_type = pivot_2020_df['crime_type'] == crime_type
     crime_rate_map_df = counties.merge(pivot_2020_df[is_type],
@@ -159,7 +167,9 @@ def plot_crime_type_rate(crime_type, pivot_2020_df, counties):
                                title=plot_title,
                                hover_name='county',
                                hover_data=['prop'])
-    map.show()
+    if SHOW_PLOTS:
+        map.show()
+    return map
 
 
 def pop_vs_crime_rate(crime_type, rate_2020_df, with_king_county=True):
@@ -170,7 +180,8 @@ def pop_vs_crime_rate(crime_type, rate_2020_df, with_king_county=True):
     If with_king_county is True or unspecified, plot will include King county.
     If with_king_county is False, plot will exclude King county.
 
-    Opens the resulting interactive plot in a web browser.
+    If SHOW_PLOTS is true, opens resulting interactive plot in a web browser.
+    Returns plot.
     """
     plot_df = rate_2020_df
     plot_title = 'Relationship between population and<br>'
@@ -187,7 +198,9 @@ def pop_vs_crime_rate(crime_type, rate_2020_df, with_king_county=True):
                       height=500,
                       width=600,
                       title=plot_title)
-    plot.show()
+    if SHOW_PLOTS:
+        plot.show()
+    return plot
 
 
 def plot_prop_over_time(county, crime_rate_df, top_5=True):
@@ -200,7 +213,8 @@ def plot_prop_over_time(county, crime_rate_df, top_5=True):
     reported crime types.
     If top_5 is False, plots all crime types but the top 5.
 
-    Opens interactive plot in a web browser.
+    If SHOW_PLOTS is true, opens interactive plot in a web browser.
+    Returns plot.
     """
     county = county.upper()
     county_crime_df = crime_rate_df[crime_rate_df['county'] == county]
@@ -227,7 +241,9 @@ def plot_prop_over_time(county, crime_rate_df, top_5=True):
     plot = px.line(plot_df, x='year', y='prop', color='crime_type',
                    markers=True, width=600, height=plot_height,
                    title=plot_title)
-    plot.show()
+    if SHOW_PLOTS:
+        plot.show()
+    return plot
 
 
 def main():
@@ -252,44 +268,68 @@ def main():
 
     # WARNING: maps will open in web browser
     top_title = 'Most frequent type of crime in each county in 2020'
-    plot_top_crime_types(top_type_df, counties, top_title)
+    top_plot = plot_top_crime_types(top_type_df, counties, top_title)
     top2_title = 'Second most frequent type of crime in each county in 2020'
-    plot_top_crime_types(top2_type_df, counties, top2_title)
+    top2_plot = plot_top_crime_types(top2_type_df, counties, top2_title)
 
     # 2. How does the proportion of criminal offenses of different types vary
     #    across counties?
 
     # Plot relative rate of crime types for Washington counties in 2020
     # WARNING: maps will open in web browser
-    plot_crime_type_rate('theft', pivot_2020_df, counties)
-    plot_crime_type_rate('assault', pivot_2020_df, counties)
-    plot_crime_type_rate('destruction_of_property', pivot_2020_df, counties)
-    plot_crime_type_rate('burglary', pivot_2020_df, counties)
+    theft_map = plot_crime_type_rate('theft', pivot_2020_df, counties)
+    assault_map = plot_crime_type_rate('assault', pivot_2020_df, counties)
+    dop_map = plot_crime_type_rate('destruction_of_property',
+                                   pivot_2020_df, counties)
+    burglary_map = plot_crime_type_rate('burglary', pivot_2020_df, counties)
 
     # 2. (subquestion) Is there a relationship between population and the
     #                  proportion of a crime type?
 
     # Plot regression line between population and proportion of crime type
     # WARNING: maps will open in web browser
-    pop_vs_crime_rate('assault', rate_2020_df)
-    pop_vs_crime_rate('assault', rate_2020_df, False)
-    pop_vs_crime_rate('theft', rate_2020_df)
-    pop_vs_crime_rate('theft', rate_2020_df, False)
+    assault_reg_king = pop_vs_crime_rate('assault', rate_2020_df)
+    assault_reg_noking = pop_vs_crime_rate('assault', rate_2020_df, False)
+    theft_reg_king = pop_vs_crime_rate('theft', rate_2020_df)
+    theft_reg_noking = pop_vs_crime_rate('theft', rate_2020_df, False)
 
     # 3. How has relative frequency of different types of crime changed over
     #    time different counties?
 
     # WARNING: maps will open in web browser
     # Plot top 5 and non-top 5 crime types over time in King county
-    plot_prop_over_time('King', crime_rate_df)
-    plot_prop_over_time('King', crime_rate_df, False)
+    king_top5 = plot_prop_over_time('King', crime_rate_df)
+    king_not_top5 = plot_prop_over_time('King', crime_rate_df, False)
 
     # Plot top 5 crime types over time in other counties
-    plot_prop_over_time('Pierce', crime_rate_df)
-    plot_prop_over_time('Stevens', crime_rate_df)
-    plot_prop_over_time('Jefferson', crime_rate_df)
-    plot_prop_over_time('Garfield', crime_rate_df)
-    plot_prop_over_time('Columbia', crime_rate_df)
+    pierce_top5 = plot_prop_over_time('Pierce', crime_rate_df)
+    stevens_top5 = plot_prop_over_time('Stevens', crime_rate_df)
+    jefferson_top5 = plot_prop_over_time('Jefferson', crime_rate_df)
+    garfield_top5 = plot_prop_over_time('Garfield', crime_rate_df)
+    columbia_top5 = plot_prop_over_time('Columbia', crime_rate_df)
+
+    # Save interactive plots to html pages
+    top_plot.write_html('plots/plotly/top_plot.html')
+    top2_plot.write_html('plots/plotly/top2_plot.html')
+
+    theft_map.write_html('plots/plotly/theft_map.html')
+    assault_map.write_html('plots/plotly/assault_map.html')
+    dop_map.write_html('plots/plotly/dop_map.html')
+    burglary_map.write_html('plots/plotly/burglary_map.html')
+
+    assault_reg_king.write_html('plots/plotly/assault_reg_king.html')
+    assault_reg_noking.write_html('plots/plotly/assault_reg_noking.html')
+    theft_reg_king.write_html('plots/plotly/theft_reg_king.html')
+    theft_reg_noking.write_html('plots/plotly/theft_reg_noking.html')
+
+    king_top5.write_html('plots/plotly/king_top5.html')
+    king_not_top5.write_html('plots/plotly/king_not_top5.html')
+
+    pierce_top5.write_html('plots/plotly/pierce_top5.html')
+    stevens_top5.write_html('plots/plotly/stevens_top5.html')
+    jefferson_top5.write_html('plots/plotly/jeffereson_top5.html')
+    garfield_top5.write_html('plots/plotly/garfield_top5.html')
+    columbia_top5.write_html('plots/plotly/columbia_top5.html')
 
 
 if __name__ == '__main__':
