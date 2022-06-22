@@ -10,7 +10,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Analyzing Factors Contributing to Crime in Washington State Counties</title>
+  <title>Analyzing Factors Related to Crime in Washington State Counties</title>
 </head>
 
 <body>
@@ -140,10 +140,257 @@
   </p>
   <h3>Why do we care about these areas of interest?</h3>
   <ul>
-    <li>Types of criminal offenses:</li>
-    <li>Unemployment rate:</li>
-    <li>Population density:</li>
+    <li><strong>Types of criminal offenses:</strong></li>
+    <ul>
+      <li>
+        Understanding more about what and where crimes are taking place can help inform
+        decisions about what policies and actions may be taken to reduce crime in different
+        counties. Seeing how proportions of crime types have changed over time can indicate
+        whether certain policy changes have or have not been effective.
+      </li>
+    </ul>
+    <li><strong>Unemployment rate:</strong></li>
+    <ul>
+      <li>
+        To explore if unemployment rate actually has an influence on crime If it does, knowing
+        which types of crimes more sensitively respond to unemployment rate can help the
+        government take actions towards specific types of crimes
+      </li>
+    </ul>
+    <li><strong>Population density:</strong></li>
+    <ul>
+      <li>
+        When looking through the crime map, it seems the places that have higher population
+        densities are more likely to have high crime rates. And crimes often happen in places
+        such as downtown or some bustling cities. This phenomenon motivates me to think about
+        the question, is the population density the major factor that affects the crime rate,
+        and how strongly it relates to the crime rate or some specific crime type. Exploring
+        these questions could help people to understand what factor affects the crime rate the most,
+        and the government could figure out a way to reduce the crime rate efficiently by focusing
+        on the major factor of the crime rate.
+      </li>
+    </ul>
   </ul>
+
+  <br>
+  <h2>Datasets</h2>
+  <ol>
+    <li>
+      <strong>Washington state county boundaries geodata:</strong> This dataset includes Washington
+      state county boundaries, county codes, and county nameas and labels. The data was created by
+      the WA Department of Natural Resources.
+      <ul>
+        <li>
+          <a href="https://geo.wa.gov/search?q=counties&type=document%20link"
+          target="_blank" rel="noopener noreferrer">Washington Geospatial Open Data Portal</a>
+        </li>
+        <li>
+          <a href="https://fortress.wa.gov/dnr/adminsa/gisdata/datadownload/WA_County_Bndys.zip"
+          target="_blank" rel="noopener noreferrer">
+            Download shapefiles</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Washington state crime data:</strong> This dataset includes annual counts of 23
+      different types of criminal offenses for Washington state counties and police departments.
+      It also includes data on population, crime rate, and prison rate. The data was collected by
+      the NIBRS and range over the years 2012-2020.
+      <ul>
+        <li>
+          <a href="https://data.wa.gov/Public-Safety/Washington-State-Uniform-Crime-Reporting-National-/vvfu-ry7f"
+          target="_blank" rel="noopener noreferrer">
+          WA National Incident Based Reporting System dataset</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Employment rate data:</strong> This dataset includes annual averages on the labor
+      force as well as counts on the employed and unemployed population per county. Data
+      exist for the years 1990-2021.
+      <ul>
+        <li>
+          <a href="https://www.bls.gov/lau/#tables"
+          target="_blank" rel="noopener noreferrer">
+          Local Area Unemployment Statistics (County Data)</a>
+        </li>
+        <li>Data used in this analysis:
+          <ul>
+            <li>2020 Washington crime data (total crime rates, crime incidents of each type)</li>
+            <li>Unemployment rate of each county in Washington in 2020</li>
+          </ul>
+        </li>
+        <li>Data used in backup analysis:
+          <ul>
+            <li>Washington crime data from 2012 to 2020</li>
+            <li>Washington unemployment rate for each county from 2012 to 2020</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Population density data</strong> This dataset includes the population density
+      of Washington state counties for the years 2000 to 2021. The data was provided by
+      the Washington State Office of Financial Management, Forecasting and Research Division
+      <ul>
+        <li>
+          <a href="https://data.wa.gov/demographics/WAOFM-April-1-Population-Density-by-County-2000-to/c535-p92u"
+          target="_blank" rel="noopener noreferrer">
+          WA County Population Density dataset</a>
+        </li>
+      </ul>
+    </li>
+  </ol>
+
+  <br>
+  <h2>Methods</h2>
+  <h3>Analysis of types of criminal offenses</h3>
+  <ol>
+    <li>Cleaning and filtering the data:</li>
+    <ul>
+      <li>Washington crime data</li>
+      <ol>
+        <li>
+          Clean up column names, get only columns of counts of reported offenses,
+          create new column of total counts, get only rows with county totals.
+        </li>
+        <li>
+          Create a new dataframe converting counts to proportions out of total offenses reported.
+        </li>
+        <li>
+          Melt the dataframe of rates to a longer format for easier analysis, filtering, and plotting.
+        </li>
+      </ol>
+      <li>Washington counties geodata</li>
+      <ol>
+        <li>Filter columns to only county name and geometry columns.</li>
+        <li>Reproject geometries to geographic CRS.</li>
+      </ol>
+    </ul>
+    <li>Exploring and answering research questions:</li>
+    <!-- TODO: after formatting... keep or remove the collapsible menu? -->
+    <ol>
+      <li><details open>
+        <summary>What types of crime occur most frequently in different counties?</summary>
+        <p>
+          <ul>
+            <li>
+              Using the melted/longer dataset, group observations by county, and get the crime type
+              with the highest proportion for each county. Then, to get the second most frequently
+              reported type of crime, do the same, but excluding the type for each county that was
+              the most frequently reported.
+            </li>
+            <li>
+              Merge the DataFrames of the county geometries and the first and second most
+              frequently reported types of offenses for each county to display data on an
+              interactive map using plotly. This map will allow the crime type for each county
+              to be easily see. Additional information can be obtained by hovering over each county.
+            </li>
+          </ul>
+        </p>
+      </details></li>
+      <li><details open>
+        <summary>
+          How does the proportion of criminal offenses of different types vary across counties?
+          Is there a relationship between population and the proportion of a crime type?
+        </summary>
+        <p>
+          <ul>
+            <li>
+              Create a method that, given any crime type, filters the longer dataframe by the crime
+              type and maps (using plotly) the relative proportion of crime that that type makes up
+              for each county. Each county should be colored by that proportion, so you can see
+              where that type of crime is more or less frequent.
+            </li>
+            <li>
+              For a few crime types, use plotly to graph a scatterplot where x=population and
+              y=rate of a crime type for each county, and plot the least squares regression line
+              for the data. Use the computed R2 coefficient to discuss whether a weak or strong or
+              relationship may exist between population and rate of a crime type.
+            </li>
+          </ul>
+        </p>
+      </details></li>
+      <li><details open>
+        <summary>
+          How has relative frequency of different types of crime changed over time different
+          counties?
+        </summary>
+        <p>
+          <ul>
+            <li>
+              Create a method that, given the name of county, filters the original dataframe of
+              crime rates by that county, melts dataframe to a longer format, and plots
+              (for the top 5 most frequently reported crime types in 2020)
+              how the rate of each has changed from 2012 to 2020 using plotly.
+            </li>
+          </ul>
+        </p>
+      </details></li>
+    </ol>
+  </ol>
+  <h3>Analysis of unemployment rates</h3>
+  <ol>
+    <li>Filtering the data:</li>
+    <ul>
+      <li>
+        Filter out the crime data for Benton, King, Yakima, Spokane, and Snohomish, which are,
+        according to the safe cities ranking, counties that are relatively more dangerous and
+        require stricter safety regulations.
+      </li>
+      <li>
+        Filter out the unemployment data in 2020 for each county.
+      </li>
+    </ul>
+    <li>Combine the unemployment data of each county into one single dataset.</li>
+    <li>
+      Draw graphs to compare how unemployment rates change over time from 2012 to 2020
+      and how crime incidents change overtime from 2012 to 2020.
+    </li>
+    <li>Observe if there's strong evidence to draw conclusions on their relationships.</li>
+  </ol>
+  <h3>Analysis of population density</h3>
+  <ol>
+    <li>Generating the data:</li>
+    <ul>
+      <li>
+        Change the shape of the population density DataFrame, so it has the same shape as the crime
+        DataFrame. Merge the two DataFrames according to the county names and years.
+      </li>
+    </ul>
+    <li>Interactive scatter plot:</li>
+    <ul>
+      <li>
+        Use the plotly library to create an interactive scatter plot and draw a regression line.
+        The graph shows the relationship between the counties with population density greater than
+        100 and the crime rate in those counties. Each dot shows the values of the crime rate and
+        population density for each county we chose from 2012 to 2020.
+      </li>
+    </ul>
+    <li>Line plots:</li>
+    <ul>
+      <li>
+        Apply the seaborn library to create the two line plots. One shows how the crime rate
+        changes over time in King county and Pierce county. The other one shows how population
+        density changes over time in King county and Pierce county.
+      </li>
+    </ul>
+    <li>Bar plots:</li>
+    <ul>
+      <li>
+        Show the top five common crime types in four counties with the highest population density
+        in bar plots. The x-axis represents the crime counts and the y-axis is the names
+        of crime types.
+      </li>
+    </ul>
+  </ol>
+
+  <br>
+  <h2>Results</h2>
+  <h3>Types of criminal offenses</h3>
+  <h3>Unemployment rate and crime rates</h3>
+  <h3>Population density and crime rates</h3>
+
 </body>
 
 </html>
