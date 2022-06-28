@@ -13,20 +13,12 @@
   <meta charset="utf-8">
   <title>Analyzing Factors Related to Crime in Washington State Counties</title>
   <link href="main.css" rel="stylesheet">
-
-  <script src="jquery.js"></script>
-  <script>
-  $(function(){
-    $("#topmap").load("plots/plotly/top_map.html");
-  });
-  </script>
 </head>
 
 <body>
   <h1>Analyzing Factors Related to Crime Rates in Washington State Counties</h1>
   <p><strong>Authors:</strong> Caroline Ding, Katherine Liu, Iris Zhou</p>
 
-  <br>
   <h2>Summary of Questions and Results</h2>
   <p>
     Our analysis focused on three areas of interest: types of offenses reported,
@@ -38,7 +30,7 @@
     <li>
       <details>
         <summary>What types of crime occur most frequently in different counties?</summary>
-        <p>
+        <p class="results">
           Theft is the most frequently occuring type of offense in most counties. Assault,
           destruction of property, and burglary are among the second most frequently occuring
           types of crime.
@@ -50,8 +42,8 @@
         <summary>
           How does the proportion of types of criminal offenses vary across counties?
         </summary>
-        <p>
-          The proportion of thefts as compared the proportion of other offesnes reported is
+        <p class="results">
+          The proportion of thefts as compared the proportion of other offenses reported is
           highest in King County and in other Puget Sound area counties. The proportion of
           assaults reported is lower in comparison in those counties.
         </p>
@@ -64,7 +56,7 @@
             Is there a relationship between population size and the proportion of theft
             and assault?
           </summary>
-          <p>
+          <p class="results">
             There may be a weak positive correlation between population size and the
             proportion of thefts in counties. There appears to be little to no relationship
             between population size and the proportion of assault in counties.
@@ -78,7 +70,7 @@
           How has the relative frequency of different types of crime changed over time
           different counties?
         </summary>
-        <p>
+        <p class="results">
           In more populated counties, the relative frequency of crime types experience
           little to no change over time. Larger counties also have a larger gap between the
           relative frequency of the most frequent crime type and of
@@ -98,7 +90,7 @@
         <summary>
           Is there a strong correlation between unemployment rate and crime rates?
         </summary>
-        <p>
+        <p class="results">
           There is a weakly positive relationship between the total crime rate and the
           unemployment rate within each county. However, the total crime rate does not
           respond to changes of the unemployment rate very sensitively.
@@ -110,7 +102,7 @@
         <summary>
           Which type of crime "responds" to the unemployment rate most sensitively?
         </summary>
-        <p>
+        <p class="results">
           Burglary and theft incidents have a weakly positive relationship with unemployment.
           There's no strong evidence showing there's a strong correlation between the
           unemployment rate with other types of criminal offenses.
@@ -123,7 +115,7 @@
     <li>
       <details>
         <summary>How does the population density of counties affect the crime rate?</summary>
-        <p>
+        <p class="results">
           The population density in Washington state has a positive correlation with the
           crime rate, but the relation is not very obvious.
         </p>
@@ -132,7 +124,7 @@
     <li>
       <details>
         <summary>Which type of crime highly relates to population density?</summary>
-        <p>
+        <p class="results">
           The crime type, theft, has the strongest relationship with population density
           in Washington state.
         </p>
@@ -140,7 +132,6 @@
     </li>
   </ol>
 
-  <br>
   <h2>Motivation</h2>
   <h3>Overall motivation</h3>
   <p>
@@ -182,7 +173,6 @@
     </ul>
   </ul>
 
-  <br>
   <h2>Datasets</h2>
   <ol>
     <li>
@@ -252,7 +242,6 @@
     </li>
   </ol>
 
-  <br>
   <h2>Methods</h2>
   <h3>Analysis of types of criminal offenses</h3>
   <ol>
@@ -395,30 +384,89 @@
     </ul>
   </ol>
 
-  <br>
   <h2>Results</h2>
   <h3>Types of criminal offenses</h3>
+  <ol>
+    <li><strong>What types of crime occur most frequently in different counties?</strong></li>
+    <object data="plots/plotly/top_map.html" height="480" width="100%"></object>
+    <p>
+      In 2020, out of the 39 counties in Washington state, 34 counties reported theft the most
+      frequently, and 5 counties (Ferry, Stevens, Garfield, Columbia, and Wahkiakum) reported
+      assault the most frequently.
+    </p>
+    <p class="note">
+      Under the National Incident-Based Reporting System, the "theft" label encompasses
+      embezzlement, fraud, larceny, motor vehicle theft, and stolen property offenses.
+      The "assault" label encompasses aggravated assault, simple assault, and intimidation.
+      [<a href="https://sac.ofm.wa.gov/sites/default/files/public/pdf/nbrs_dictionary.pdf"
+          target="_blank" rel="noopener noreferrer">NIBRS codebook</a>]
+    </p>
+    <p>
+      It is worth noting that 4 of these 5 counties are the least populated counties in Washington,
+      having less than 8K people. Stevens County is the exception, ranking 24th by population.
+      This observation seems to indicate that some relationship may exist between population
+      and relative frequency of assault. We will explore the existence of this relationship
+      more in Question 2.
+    </p>
 
-  <div id="top_map"></div>
+    <object data="plots/plotly/top2_map.html" height="500" width="100%"></object>
+    <p>
+      The second most frequently reported offenses in Washington counties include assault,
+      destruction of property, theft, and burglary. Looking at both visualizations, we notice
+      that in each of the 5 countries where assault was the most frequently reported, theft was
+      the second most frequently reported offense. This solidifies the observation that theft and
+      assault are most frequent across all counties, regardless of population.
+      <br><br>
+      Prior to this analysis, I somewhat expected theft to be the most frequent, because out of
+      all the crime types recorded, individuals may have the most to directly gain from theft.
+      I was surprised to learn that assault is also so frequently reported, since I expected
+      non-violent types of crime to be more common.
+      <br><br>
+      Because the data do not further divide into the subcategories of theft and assault, it is
+      possible that these two offenses are most common because they each encompass several
+      different types of offenses. The lack of further division also restricts what we can discern
+      of the types of offenses that are more commonly committed. The most frequently reported types
+      of offenses include both crimes against the person (aggravated assault) and crimes against
+      property (burglary, larceny-theft, motor vehicle theft, destruction of property) as defined
+      by the FBI's Uniform Crime Reporting Handbook.
+      [<a href="https://ucr.fbi.gov/additional-ucr-publications/ucr_handbook.pdf"
+          target="_blank" rel="noopener noreferrer">UCR handbook</a>]
+    </p>
+
+    <br><br>
+    <li><strong>
+      How does the proportion of criminal offenses of different types vary across counties?
+      Is there a relationship between population and the proportion of a crime type?
+    </strong></li>
+
+    <p>
+      We now want to further explore what proportion of the total offenses reported in each county
+      are theft, assault, destruction of property, and burglary.
+    </p>
+    <p class="plot-title">Proportion of crimes types in counties in 2020</p>
+    <object class="left-frame" data="plots/plotly/theft_map.html" height="350" width="45%"></object>
+    <object class="right-frame" data="plots/plotly/assault_map.html" height="350" width="45%"></object>
 
 
-  <p class="plot-title">Relationship between county population size and assault rate in 2020</p>
-  <iframe class="left-frame" id="igraph" scrolling="no" style="border:none;" seamless="seamless"
-  src="https://plotly.com/~irisz1/8.embed" height="525" width="45%"></iframe>
-  <iframe class="right-frame" id="igraph" scrolling="no" style="border:none;" seamless="seamless"
-  src="https://plotly.com/~irisz1/4.embed" height="525" width="45%"></iframe>
-  <!-- <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/10.embed" height="525" width="100%"></iframe>
-  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/12.embed" height="525" width="100%"></iframe>
+    <p class="plot-title">Relationship between county population size and assault rate in 2020</p>
+    <iframe class="left-frame" id="igraph" scrolling="no" style="border:none;" seamless="seamless"
+    src="https://plotly.com/~irisz1/8.embed" height="525" width="45%"></iframe>
+    <iframe class="right-frame" id="igraph" scrolling="no" style="border:none;" seamless="seamless"
+    src="https://plotly.com/~irisz1/4.embed" height="525" width="45%"></iframe>
 
-  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/14.embed" height="525" width="100%"></iframe>
-  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/18.embed" height="525" width="100%"></iframe>
+    <p class="plot-title">Proportion of crimes types in counties in 2020</p>
+    <!-- <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/10.embed" height="525" width="100%"></iframe>
+    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/12.embed" height="525" width="100%"></iframe>
 
-  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/20.embed" height="525" width="100%"></iframe>
-  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/22.embed" height="525" width="100%"></iframe>
-  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/24.embed" height="525" width="100%"></iframe>
-  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/26.embed" height="525" width="100%"></iframe>
-  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/28.embed" height="525" width="100%"></iframe> -->
+    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/14.embed" height="525" width="100%"></iframe>
+    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/18.embed" height="525" width="100%"></iframe>
 
+    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/20.embed" height="525" width="100%"></iframe>
+    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/22.embed" height="525" width="100%"></iframe>
+    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/24.embed" height="525" width="100%"></iframe>
+    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/26.embed" height="525" width="100%"></iframe>
+    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/28.embed" height="525" width="100%"></iframe> -->
+  </ol>
 
   <h3>Unemployment rate and crime rates</h3>
   <h3>Population density and crime rates</h3>

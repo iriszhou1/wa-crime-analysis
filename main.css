@@ -3,31 +3,38 @@
 }
 
 body {
-  margin-left: 300px;
-  margin-right: 300px;
+  margin-left: 275px;
+  margin-right: 275px;
   margin-top: 30px;
   background-color: white;
 }
 
+.results {
+  color: royalblue;
+  padding: 8px;
+  border: 1px solid blue;
+}
+
 ol, ul, li {
+  margin-top: 10px;
   line-height: 1.2;
 }
 
-.left-frame {
+h2 {
+  margin-top: 60px;
+}
+
+.left-frame, .right-frame {
   float: left;
   border: none;
 }
 
-.right-frame {
-  float: right;
-  border: none;
+.note {
+  margin-left: 60px;
+  color: gray;
 }
 
 .plot-title {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 25px;
 }
-
-/* iframe {
-
-} */
