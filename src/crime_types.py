@@ -16,6 +16,9 @@ import geopandas as gpd
 import numpy as np
 import seaborn as sns
 import plotly.express as px
+import chart_studio
+import chart_studio.plotly as py
+import chart_studio.tools as tls
 # import plotly.io as pio
 
 sns.set()
@@ -268,9 +271,9 @@ def main():
 
     # WARNING: maps will open in web browser
     top_title = 'Most frequent type of crime in each county in 2020'
-    top_plot = plot_top_crime_types(top_type_df, counties, top_title)
+    top_map = plot_top_crime_types(top_type_df, counties, top_title)
     top2_title = 'Second most frequent type of crime in each county in 2020'
-    top2_plot = plot_top_crime_types(top2_type_df, counties, top2_title)
+    top2_map = plot_top_crime_types(top2_type_df, counties, top2_title)
 
     # 2. How does the proportion of criminal offenses of different types vary
     #    across counties?
@@ -309,27 +312,52 @@ def main():
     columbia_top5 = plot_prop_over_time('Columbia', crime_rate_df)
 
     # Save interactive plots to html pages
-    top_plot.write_html('plots/plotly/top_plot.html')
-    top2_plot.write_html('plots/plotly/top2_plot.html')
+
+    # Generate iframe embedded code for charts saved to plotly account
+    chart_studio.tools.set_credentials_file(username='irisz1',
+                                            api_key='KpywulqM2TABw3Yt5hRo')
+
+    py.plot(assault_reg_king, filename='assault_reg_king', auto_open=False)
+    py.plot(assault_reg_noking, filename='assault_reg_noking', auto_open=False)
+    py.plot(theft_reg_king, filename='theft_reg_king', auto_open=False)
+    py.plot(theft_reg_noking, filename='theft_reg_noking', auto_open=False)
+
+    py.plot(king_top5, filename='king_top5', auto_open=False)
+    py.plot(king_not_top5, filename='king_not_top5', auto_open=False)
+
+    py.plot(pierce_top5, filename='pierce_top5', auto_open=False)
+    py.plot(stevens_top5, filename='stevens_top5', auto_open=False)
+    py.plot(jefferson_top5, filename='jefferson_top5', auto_open=False)
+    py.plot(garfield_top5, filename='garfield_top5', auto_open=False)
+    py.plot(columbia_top5, filename='columbia_top5', auto_open=False)
+
+    iframe_code = []
+    iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/4/'))
+    iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/8/'))
+    iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/10/'))
+    iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/12/'))
+    iframe_code.append('')
+    iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/14/'))
+    iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/18/'))
+    iframe_code.append('')
+    iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/20/'))
+    iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/22/'))
+    iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/24/'))
+    iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/26/'))
+    iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/28/'))
+
+    with open('plots/plotly/iframe_code.txt', 'w') as f:
+        for embed in iframe_code:
+            f.write(embed)
+            f.write('\n')
+
+    top_map.write_html('plots/plotly/top_map.html')
+    top2_map.write_html('plots/plotly/top2_map.html')
 
     theft_map.write_html('plots/plotly/theft_map.html')
     assault_map.write_html('plots/plotly/assault_map.html')
     dop_map.write_html('plots/plotly/dop_map.html')
     burglary_map.write_html('plots/plotly/burglary_map.html')
-
-    assault_reg_king.write_html('plots/plotly/assault_reg_king.html')
-    assault_reg_noking.write_html('plots/plotly/assault_reg_noking.html')
-    theft_reg_king.write_html('plots/plotly/theft_reg_king.html')
-    theft_reg_noking.write_html('plots/plotly/theft_reg_noking.html')
-
-    king_top5.write_html('plots/plotly/king_top5.html')
-    king_not_top5.write_html('plots/plotly/king_not_top5.html')
-
-    pierce_top5.write_html('plots/plotly/pierce_top5.html')
-    stevens_top5.write_html('plots/plotly/stevens_top5.html')
-    jefferson_top5.write_html('plots/plotly/jeffereson_top5.html')
-    garfield_top5.write_html('plots/plotly/garfield_top5.html')
-    columbia_top5.write_html('plots/plotly/columbia_top5.html')
 
 
 if __name__ == '__main__':

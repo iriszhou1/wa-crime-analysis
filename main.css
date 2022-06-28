@@ -1,0 +1,33 @@
+* {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin-left: 300px;
+  margin-right: 300px;
+  margin-top: 30px;
+  background-color: white;
+}
+
+ol, ul, li {
+  line-height: 1.2;
+}
+
+.left-frame {
+  float: left;
+  border: none;
+}
+
+.right-frame {
+  float: right;
+  border: none;
+}
+
+.plot-title {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 25px;
+}
+
+/* iframe {
+
+} */

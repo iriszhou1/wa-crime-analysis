@@ -3,6 +3,7 @@
     - spacing between headings
     - margins
     - change font
+    - put iframes side by side
   -->
 
 <!DOCTYPE html>
@@ -11,12 +12,21 @@
 <head>
   <meta charset="utf-8">
   <title>Analyzing Factors Related to Crime in Washington State Counties</title>
+  <link href="main.css" rel="stylesheet">
+
+  <script src="jquery.js"></script>
+  <script>
+  $(function(){
+    $("#topmap").load("plots/plotly/top_map.html");
+  });
+  </script>
 </head>
 
 <body>
   <h1>Analyzing Factors Related to Crime Rates in Washington State Counties</h1>
   <p><strong>Authors:</strong> Caroline Ding, Katherine Liu, Iris Zhou</p>
 
+  <br>
   <h2>Summary of Questions and Results</h2>
   <p>
     Our analysis focused on three areas of interest: types of offenses reported,
@@ -184,11 +194,11 @@
           <a href="https://geo.wa.gov/search?q=counties&type=document%20link"
           target="_blank" rel="noopener noreferrer">Washington Geospatial Open Data Portal</a>
         </li>
-        <li>
+        <!-- <li>
           <a href="https://fortress.wa.gov/dnr/adminsa/gisdata/datadownload/WA_County_Bndys.zip"
           target="_blank" rel="noopener noreferrer">
             Download shapefiles</a>
-        </li>
+        </li> -->
       </ul>
     </li>
     <li>
@@ -388,6 +398,28 @@
   <br>
   <h2>Results</h2>
   <h3>Types of criminal offenses</h3>
+
+  <div id="top_map"></div>
+
+
+  <p class="plot-title">Relationship between county population size and assault rate in 2020</p>
+  <iframe class="left-frame" id="igraph" scrolling="no" style="border:none;" seamless="seamless"
+  src="https://plotly.com/~irisz1/8.embed" height="525" width="45%"></iframe>
+  <iframe class="right-frame" id="igraph" scrolling="no" style="border:none;" seamless="seamless"
+  src="https://plotly.com/~irisz1/4.embed" height="525" width="45%"></iframe>
+  <!-- <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/10.embed" height="525" width="100%"></iframe>
+  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/12.embed" height="525" width="100%"></iframe>
+
+  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/14.embed" height="525" width="100%"></iframe>
+  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/18.embed" height="525" width="100%"></iframe>
+
+  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/20.embed" height="525" width="100%"></iframe>
+  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/22.embed" height="525" width="100%"></iframe>
+  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/24.embed" height="525" width="100%"></iframe>
+  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/26.embed" height="525" width="100%"></iframe>
+  <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/28.embed" height="525" width="100%"></iframe> -->
+
+
   <h3>Unemployment rate and crime rates</h3>
   <h3>Population density and crime rates</h3>
 
