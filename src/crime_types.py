@@ -130,10 +130,12 @@ def plot_top_crime_types(crime_type_df, counties, plot_title):
                                color="crime_type",
                                center={"lat": 47.3254, "lon": -120.7401},
                                mapbox_style="carto-positron",
-                               zoom=5.4, width=800, height=500,
+                               zoom=5.4, width=750, height=450,
                                title=plot_title,
                                hover_name='county',
                                hover_data=['crime_type', 'prop'])
+    map.update_layout(margin={"r": 30, "t": 50, "l": 30, "b": 20},
+                      legend_title_text='Crime Type')
     if SHOW_PLOTS:
         map.show()
     return map
@@ -165,11 +167,11 @@ def plot_crime_type_rate(crime_type, pivot_2020_df, counties):
                                color_continuous_scale=color_scale,
                                center={"lat": 47.3254, "lon": -120.7401},
                                mapbox_style="carto-positron",
-                               zoom=4, width=400, height=300,
+                               zoom=4.5, width=380, height=250,
                                title=plot_title,
                                hover_name='county',
                                hover_data=['prop'])
-    map.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    map.update_layout(margin={"r": 0, "t": 50, "l": 0, "b": 0})
     if SHOW_PLOTS:
         map.show()
     return map
@@ -198,9 +200,10 @@ def pop_vs_crime_rate(crime_type, rate_2020_df, with_king_county=True):
 
     plot = px.scatter(plot_df, x='population', y=crime_type, trendline='ols',
                       hover_name='county',
-                      height=450,
+                      height=400,
                       width=400,
                       title=plot_title)
+    plot.update_layout(margin={"r": 80, "t": 80, "l": 0, "b": 0})
     if SHOW_PLOTS:
         plot.show()
     return plot
@@ -233,17 +236,21 @@ def plot_prop_over_time(county, crime_rate_df, top_5=True):
     if top_5:
         plot_df = melt_df[melt_df['crime_type'].isin(top_5_crime_types)]
         plot_title += 'top 5 '
-        plot_height = 500
+        plot_height = 350
+        plot_width = 400
     else:
         plot_df = melt_df[~melt_df['crime_type'].isin(top_5_crime_types)]
         plot_title += 'non-top 5 '
-        plot_height = 650
+        plot_height = 450
+        plot_width = 450
     plot_title += 'crime types <br>in ' + county[0] + county[1:].lower() + \
         ' county over time'
 
     plot = px.line(plot_df, x='year', y='prop', color='crime_type',
-                   markers=True, width=600, height=plot_height,
+                   markers=True, width=plot_width, height=plot_height,
                    title=plot_title)
+    plot.update_layout(margin={"r": 80, "t": 80, "l": 0, "b": 0},
+                       legend_title_text='Crime Type')
     if SHOW_PLOTS:
         plot.show()
     return plot
@@ -270,12 +277,10 @@ def main():
     top2_type_df = get_second_top_crime_type(pivot_2020_df, top_type_df)
 
     # WARNING: maps will open in web browser
-    """
     top_title = 'Most frequent type of crime in each county in 2020'
     top_map = plot_top_crime_types(top_type_df, counties, top_title)
     top2_title = 'Second most frequent type of crime in each county in 2020'
     top2_map = plot_top_crime_types(top2_type_df, counties, top2_title)
-    """
 
     # 2. How does the proportion of criminal offenses of different types vary
     #    across counties?
@@ -288,7 +293,6 @@ def main():
                                    pivot_2020_df, counties)
     burglary_map = plot_crime_type_rate('burglary', pivot_2020_df, counties)
 
-    """
     # 2. (subquestion) Is there a relationship between population and the
     #                  proportion of a crime type?
 
@@ -313,15 +317,12 @@ def main():
     jefferson_top5 = plot_prop_over_time('Jefferson', crime_rate_df)
     garfield_top5 = plot_prop_over_time('Garfield', crime_rate_df)
     columbia_top5 = plot_prop_over_time('Columbia', crime_rate_df)
-    """
 
     # Save interactive plots to html pages
 
     # Save plots to plotly account
-    """
     chart_studio.tools.set_credentials_file(username='irisz1',
                                             api_key='KpywulqM2TABw3Yt5hRo')
-
     py.plot(assault_reg_king, filename='assault_reg_king', auto_open=False)
     py.plot(assault_reg_noking, filename='assault_reg_noking', auto_open=False)
     py.plot(theft_reg_king, filename='theft_reg_king', auto_open=False)
@@ -335,10 +336,8 @@ def main():
     py.plot(jefferson_top5, filename='jefferson_top5', auto_open=False)
     py.plot(garfield_top5, filename='garfield_top5', auto_open=False)
     py.plot(columbia_top5, filename='columbia_top5', auto_open=False)
-    """
 
     # Generate iframe code to embed plots from plotly account
-    """
     iframe_code = []
     iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/4/'))
     iframe_code.append(tls.get_embed('https://plotly.com/~irisz1/8/'))
@@ -358,13 +357,10 @@ def main():
         for embed in iframe_code:
             f.write(embed)
             f.write('\n')
-    """
 
     # Generate iframe code for maps saved locally
-    """
     top_map.write_html('plots/plotly/top_map.html', full_html=False)
     top2_map.write_html('plots/plotly/top2_map.html', full_html=False)
-    """
 
     theft_map.write_html('plots/plotly/theft_map.html', full_html=False)
     assault_map.write_html('plots/plotly/assault_map.html', full_html=False)

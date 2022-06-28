@@ -388,7 +388,7 @@
   <h3>Types of criminal offenses</h3>
   <ol>
     <li><strong>What types of crime occur most frequently in different counties?</strong></li>
-    <object data="plots/plotly/top_map.html" height="480" width="100%"></object>
+    <object data="plots/plotly/top_map.html" height="470" width="100%"></object>
     <p>
       In 2020, out of the 39 counties in Washington state, 34 counties reported theft the most
       frequently, and 5 counties (Ferry, Stevens, Garfield, Columbia, and Wahkiakum) reported
@@ -409,7 +409,7 @@
       more in Question 2.
     </p>
 
-    <object data="plots/plotly/top2_map.html" height="500" width="100%"></object>
+    <object data="plots/plotly/top2_map.html" height="470" width="100%"></object>
     <p>
       The second most frequently reported offenses in Washington counties include assault,
       destruction of property, theft, and burglary. Looking at both visualizations, we notice
@@ -444,28 +444,157 @@
       are theft, assault, destruction of property, and burglary.
     </p>
     <p class="plot-title">Proportion of crimes types in counties in 2020</p>
-    <object class="left-frame" data="plots/plotly/theft_map.html" height="350" width="45%"></object>
-    <object class="right-frame" data="plots/plotly/assault_map.html" height="350" width="45%"></object>
+    <object class="left-frame" data="plots/plotly/theft_map.html" height="300" width="47%"></object>
+    <object class="right-frame" data="plots/plotly/assault_map.html"
+            height="300" width="47%"></object>
+    <object class="left-frame" data="plots/plotly/dop_map.html" height="300" width="47%"></object>
+    <object class="right-frame" data="plots/plotly/burglary_map.html"
+            height="300" width="47%"></object>
+    <p>
+      Looking at the range of proportions in the legends of each plot, we can see that although
+      these are the top four most frequently reported offenses, destruction of property and
+      burglary make up a much smaller proportion of the total offenses reported. As previously
+      discussed, this may be because theft and assault are much more broadly defined categories.
+      <br><br>
+      The proportion of total offenses that are theft is highest in King County, but seems to be
+      higher in other counties in the Puget Sound region as well. Inversely, the proportion of
+      total offenses that are assault seems lowest in the Puget Sound and West regions, and higher
+      in the east, particularly in Garfield. Noticing that the theft rate is higher and assault
+      rate is lower in Puget Sound area counties may lead us to consider whether population size
+      of a county is related to its theft rate or assault rate.
+    </p>
 
+    <ul>
+      <li><strong>
+        Is there a relationship between population count and relative frequency of assault
+        in Washington state counties?
+      </strong></li>
+      <p>
+        When the least-squares regression line was plotted to visualize the relationship between
+        relative rate of assault in a county and its population (with and without King County
+        as an outlier), no significant correlation was found.
+      </p>
+      <p class="plot-title">Relationship between county population size and assault rate in 2020</p>
+      <iframe class="left-frame" id="igraph" scrolling="no" style="border:none;"
+              seamless="seamless" src="https://plotly.com/~irisz1/8.embed"
+              height="440" width="50%"></iframe>
+      <iframe class="right-frame" id="igraph" scrolling="no" style="border:none;"
+              seamless="seamless" src="https://plotly.com/~irisz1/4.embed"
+              height="440" width="50%"></iframe>
+      <p>
+        When King County was included, the regression line had an R<sup>2</sup> coefficient of
+        0.09797, which indicates that very little of the variation in assault rate can be
+        explained by changes in population size. When King County was excluded, R<sup>2</sup>
+         = 0.1217, which still indicates a weak correlation between these two factors.
+      </p>
 
-    <p class="plot-title">Relationship between county population size and assault rate in 2020</p>
-    <iframe class="left-frame" id="igraph" scrolling="no" style="border:none;" seamless="seamless"
-    src="https://plotly.com/~irisz1/8.embed" height="525" width="45%"></iframe>
-    <iframe class="right-frame" id="igraph" scrolling="no" style="border:none;" seamless="seamless"
-    src="https://plotly.com/~irisz1/4.embed" height="525" width="45%"></iframe>
+      <br><li><strong>
+        Is there a relationship between population count and relative frequency of theft
+        in Washington state counties?
+      </strong></li>
+      <p>
+        When the least-squares regression line was plotted to visualize the relationship
+        between the relative rate of theft in a county and its population size (with and
+        without King County as an outlier), a weak positive correlation was found between
+        the two variables. The regression line had similar R<sup>2</sup> values of 0.33
+        and 0.35 both with and without King County. Since we've only looked at the relationship
+        between the theft rate and population, this weak correlation may indicate that other
+        variables other than population may need to also be considered.
+      </p>
+      <p class="plot-title">Relationship between county population size and theft rate in 2020</p>
+      <iframe class="left-frame" id="igraph" scrolling="no" style="border:none;"
+              seamless="seamless" src="https://plotly.com/~irisz1/10.embed"
+              height="440" width="50%"></iframe>
+      <iframe class="right-frame" id="igraph" scrolling="no" style="border:none;"
+              seamless="seamless" src="https://plotly.com/~irisz1/12.embed"
+              height="440" width="50%"></iframe>
 
-    <p class="plot-title">Proportion of crimes types in counties in 2020</p>
-    <!-- <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/10.embed" height="525" width="100%"></iframe>
-    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/12.embed" height="525" width="100%"></iframe>
+      <li><strong>
+        How has relative frequency of different types of crime changed over time different counties?
+      </strong></li>
+      <h4>King County</h4>
+      <p>
+        Looking at the proportion of total crimes that were of the top five crime types in King
+        county, we see that the relative frequency of each type has not changed too much over time.
+        For example, in 2012, theft accounted for about 50% of reported offenses, and in 2020,
+        theft accounted for about 55% of reported offenses. There has only been a 5% increase
+        in this proportion from 2012 to 2020, and as seen in the figure, this proportion
+        fluctuates slightly from year to year.
+      </p>
+      <iframe class="left-frame" id="igraph" scrolling="no" style="border:none;"
+              seamless="seamless" src="https://plotly.com/~irisz1/14.embed"
+              height="400" width="100%"></iframe>
+      <p>
+        For crime types not in the top five, there appears to be slightly more fluctuation,
+        but when we consider that each of these crime types accounts for under 2.5% of the total
+        offenses, we see that this fluctuation is not significant.
+      </p>
+      <iframe class="left-frame" id="igraph" scrolling="no" style="border:none;"
+              seamless="seamless" src="https://plotly.com/~irisz1/18.embed"
+              height="500" width="100%"></iframe>
+      <p>
+        Overall, in King county, each crime type tends to make up a similar proportion of total
+        offenses reported from year to year. Each crime type tends to rank the same by proportion
+        form year to year as well, meaning theft has remained the most frequent, assault is the
+        second most frequent, destruction of property is the third, burglary is the fourth,
+        drug violations are the fifth, etc.
+        <br><br>
+        I was surprised by how much more frequent theft is than any other type of offense
+        in King county, especially because it seems like burglary or robberies are more
+        often discussed.
+      </p>
 
-    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/14.embed" height="525" width="100%"></iframe>
-    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/18.embed" height="525" width="100%"></iframe>
+      <h4>Other counties</h4>
+      <p>
+        In Pierce county, just south of King county, we see similar trends in the top five most
+        frequent crime types, although destruction of property is now the second most frequently
+        reported offense, and violation of no contact order has replace drug violations as
+        the fifth most reported offense. Theft still maintains the highest proportion,
+        and there is a significant ~20% gap between the proportion for the first and
+        second most reported offenses.
+      </p>
+      <iframe class="left-frame" id="igraph" scrolling="no" style="border:none;"
+              seamless="seamless" src="https://plotly.com/~irisz1/20.embed"
+              height="400" width="100%"></iframe>
+      <p>
+        In medium-sized counties like Stevens county and Jefferson county, there seems to be less
+        of a gap between the first and second most reported offenses. In both counties, we see
+        some proportions of crime types coverage by 2020. For example, in Jefferson, assault,
+        burglary, destruction, and drug violations all make up about 13% of total offenses
+        by 2020. In Stevens, assault and theft both make up about 28%, and burglary and
+        violation of no contact make up about 10%.
+      </p>
+      <iframe class="left-frame" id="igraph" scrolling="no" style="border:none;"
+              seamless="seamless" src="https://plotly.com/~irisz1/22.embed"
+              height="400" width="50%"></iframe>
+      <iframe class="right-frame" id="igraph" scrolling="no" style="border:none;"
+              seamless="seamless" src="https://plotly.com/~irisz1/24.embed"
+              height="400" width="50%"></iframe>
+      <p>
+        Finally, in small counties with less than 10K people like Garfield and Columbia counties,
+        we see much more fluctuation in proportions over time.
+      </p>
+      <iframe class="left-frame" id="igraph" scrolling="no" style="border:none;"
+              seamless="seamless" src="https://plotly.com/~irisz1/26.embed"
+              height="400" width="50%"></iframe>
+      <iframe class="right-frame" id="igraph" scrolling="no" style="border:none;"
+              seamless="seamless" src="https://plotly.com/~irisz1/28.embed"
+              height="400" width="50%"></iframe>
 
-    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/20.embed" height="525" width="100%"></iframe>
-    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/22.embed" height="525" width="100%"></iframe>
-    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/24.embed" height="525" width="100%"></iframe>
-    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/26.embed" height="525" width="100%"></iframe>
-    <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~irisz1/28.embed" height="525" width="100%"></iframe> -->
+      <p>
+        In Garfield county, the proportion of reported assaults rises from 14% to 44% from
+        2012-2020, with sharp spikes and drops from year to year. On the other hand,
+        the proportion of thefts in Columbia county rises from 45% to 70% from 2012-2014
+        before settling to around 28% by 2017.
+        <br><br>
+        The lack of fluctuation in larger counties and the increase in fluctuation in smaller
+        counties may indicate that smaller counties are much more susceptible to influence
+        by outside factors or policy changes. More analysis of the underlying differences
+        between demographics or policies in these counties would need to be conducted
+        to understand why different counties report different offenses more frequently,
+        as well as to understand why there are differences in the amount of fluctuation.
+      </p>
+    </ul>
   </ol>
 
   <h3>Unemployment rate and crime rates</h3>
