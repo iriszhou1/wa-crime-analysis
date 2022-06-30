@@ -318,8 +318,6 @@ def main():
     garfield_top5 = plot_prop_over_time('Garfield', crime_rate_df)
     columbia_top5 = plot_prop_over_time('Columbia', crime_rate_df)
 
-    # Save interactive plots to html pages
-
     # Save plots to plotly account
     chart_studio.tools.set_credentials_file(username='irisz1',
                                             api_key='KpywulqM2TABw3Yt5hRo')
@@ -327,7 +325,6 @@ def main():
     py.plot(assault_reg_noking, filename='assault_reg_noking', auto_open=False)
     py.plot(theft_reg_king, filename='theft_reg_king', auto_open=False)
     py.plot(theft_reg_noking, filename='theft_reg_noking', auto_open=False)
-
     py.plot(king_top5, filename='king_top5', auto_open=False)
     py.plot(king_not_top5, filename='king_not_top5', auto_open=False)
 

@@ -11,6 +11,8 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
+import chart_studio
+import chart_studio.plotly as py
 
 sns.set()
 
@@ -106,11 +108,16 @@ def line_plot_pop_king_pierce(merged_df):
     select_king = merged_df['COUNTY_NAME'] == 'KING'
     select_pierce = merged_df['COUNTY_NAME'] == 'PIERCE'
     king_pierce_df = merged_df[select_king | select_pierce]
-    sns.relplot(data=king_pierce_df, x="YEAR", y="POPDEN", kind="line",
-                col="COUNTY_NAME")
+    sns.set(font_scale=0.7)
+    plot = sns.relplot(data=king_pierce_df, x="YEAR", y="POPDEN", kind="line",
+                       col="COUNTY_NAME", height=2, aspect=1)
+    for ax in plot.axes.flat:
+        labels = [2012 + i if i % 2 == 0 else '' for i in range(0, 9)]
+        ax.set_xticklabels(labels, rotation=45)
     plt.xlabel('Year')
     plt.ylabel('Population Density')
     plt.savefig('plots/pop/line_plot_pop_king_pierce.png', bbox_inches='tight')
+    sns.set(font_scale=1)
 
 
 def line_plot_crime_king_pierce(merged_df):
@@ -121,12 +128,17 @@ def line_plot_crime_king_pierce(merged_df):
     select_king = merged_df['COUNTY_NAME'] == 'KING'
     select_pierce = merged_df['COUNTY_NAME'] == 'PIERCE'
     king_pierce_df = merged_df[select_king | select_pierce]
-    sns.relplot(data=king_pierce_df, x="YEAR", y="RATE", kind="line",
-                col="COUNTY_NAME")
+    sns.set(font_scale=0.7)
+    plot = sns.relplot(data=king_pierce_df, x="YEAR", y="RATE", kind="line",
+                       col="COUNTY_NAME", height=2, aspect=1)
+    for ax in plot.axes.flat:
+        labels = [2012 + i if i % 2 == 0 else '' for i in range(0, 9)]
+        ax.set_xticklabels(labels, rotation=45)
     plt.xlabel('Year')
     plt.ylabel('Crime Rate per 1,000 Residents')
     plt.savefig('plots/pop/line_plot_crime_king_pierce.png',
                 bbox_inches='tight')
+    sns.set(font_scale=1)
 
 
 def top4_pop_county_crime_df(lst_county_names_bar, crime_df):
@@ -170,7 +182,7 @@ def bar_plot_king_crime(new_crime_df2):
     king_crime_df = new_crime_df2.loc[new_crime_df2.COUNTY == 'KING']
     king_crime_df2 = king_crime_df.nlargest(n=5, columns=['value'], keep='all')
     sns.catplot(x="value", y="variable", data=king_crime_df2, kind="bar",
-                palette="Purples_r")
+                palette="Purples_r", height=4, aspect=1.8)
     plt.xlabel('Crime Count')
     plt.ylabel('Crime Types')
     plt.title('King County')
@@ -186,7 +198,7 @@ def bar_plot_clark_crime(new_crime_df2):
     clark_crime_df2 = \
         clark_crime_df.nlargest(n=5, columns=['value'], keep='all')
     sns.catplot(x="value", y="variable", data=clark_crime_df2, kind="bar",
-                palette="Oranges_r")
+                palette="Oranges_r", height=4, aspect=1.8)
     plt.xlabel('Crime Count')
     plt.ylabel('Crime Types')
     plt.title('Clark County')
@@ -202,7 +214,7 @@ def bar_plot_kitsap_crime(new_crime_df2):
     kitsap_crime_df2 = \
         kitsap_crime_df.nlargest(n=5, columns=['value'], keep='all')
     sns.catplot(x="value", y="variable", data=kitsap_crime_df2, kind="bar",
-                palette="Blues_r")
+                palette="Blues_r", height=4, aspect=1.8)
     plt.xlabel('Crime Count')
     plt.ylabel('Crime Types')
     plt.title('Kitsap County')
@@ -218,7 +230,7 @@ def bar_plot_pierce_crime(new_crime_df2):
     pierce_crime_df2 = \
         pierce_crime_df.nlargest(n=5, columns=['value'], keep='all')
     sns.catplot(x="value", y="variable", data=pierce_crime_df2, kind="bar",
-                palette="Greens_r")
+                palette="Greens_r", height=4, aspect=1.8)
     plt.xlabel('Crime Count')
     plt.ylabel('Crime Types')
     plt.title('Pierce County')
@@ -258,14 +270,20 @@ def main():
                       color="COUNTY_NAME", trendline="ols",
                       trendline_scope="overall",
                       trendline_color_override="black",
+                      width=800, height=500,
                       labels={"POPDEN": "Population Density (person per "
                               "square mile)",
                               "RATE": "Crime Rate per 1,000 Residents",
                               "COUNTY_NAME": "County names"},
                       title="Relationship Between Population Density and "
-                            "Crime Rate in Counties with Population "
+                            "Crime Rate in Counties<br>with Population "
                             "Density Greater than 100")
     fig1.show()
+
+    # save plots to plotly account
+    chart_studio.tools.set_credentials_file(username='irisz1',
+                                            api_key='KpywulqM2TABw3Yt5hRo')
+    py.plot(fig1, filename='pop_den_vs_crime_rate', auto_open=False)
 
     # two line plots
     line_plot_pop_king_pierce(merged_df)
