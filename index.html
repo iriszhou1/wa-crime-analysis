@@ -1,6 +1,7 @@
 <!--
   TODO:
-  - make dataset links blue (forever) w/o underline
+  - change result summary boxes
+  - link the repo
  -->
 
 <!DOCTYPE html>
@@ -15,8 +16,12 @@
 <body>
   <div id="wrapper">
     <div id="sidebar">
-      <p style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-                font-size: 25px; margin-top: 10px; margin-bottom: 10px;">Contents</p>
+      <span style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                font-size: 25px; margin-top: 10px; margin-bottom: 10px;">Contents</span>
+      <a class="slink" href="#contents" rel="noopener noreferrer">
+        <span style="font-size: 10px; margin-left: 32px;">back to top</span>
+        <i class="arrow up" style="margin-left: 2px;"></i>
+      </a>
       <ul class="sidebar-ul">
         <li><a class=slink href="#summary" rel="noopener noreferrer">Summary</a></li>
         <li><a class=slink href="#motivation" rel="noopener noreferrer">Motivation</a></li>
@@ -41,9 +46,24 @@
       </ul>
     </div>
 
+    <div id="links">
+      <a class="repo-link"
+         href="https://github.com/iriszhou1/wa-crime-analysis"
+         rel="noopener noreferrer"
+         target="_blank">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+             width="25" height="25">
+        <span class="repo-text">View project repo</span>
+      </a>
+    </div>
+
     <article id="contents">
       <h1>Analyzing Factors<br>Related to Crime Rates in Washington State Counties</h1>
-      <p><strong>Authors:</strong> Iris Zhou, Caroline Ding, Katherine Liu</p>
+      <p style="font-size: larger;">
+        <strong>Authors:</strong> Iris Zhou, Katherine Liu, Caroline Ding
+      </p>
+      <br><hr>
+
 
       <h2 id="summary">Summary of Questions & Results</h2>
       <p>
@@ -51,6 +71,7 @@
         unemployment rate, and population density. We analyzed how each of
         these factors relate to location and crime rates.
       </p>
+      <p class="info-box">Click on questions for a summary of the results.</p>
       <h3>Types of criminal offenses:</h3>
       <ol>
         <li>
@@ -166,7 +187,7 @@
         Knowing more about these factors can help inform specific measures and policy changes
         to improve safety for residents and change the underlying factors leading to criminal offenses.
       </p>
-      <h3>Why do we care about these areas of interest?</h3>
+      <h3>Why do we care about these areas of interest?</h3><br>
       <ul>
         <li><strong>Types of criminal offenses:</strong></li>
         <ul>
@@ -401,7 +422,7 @@
       </ol>
 
       <h2 id="results">Results</h2>
-      <p id="info-box">Hover cursor over plots for more details.</p>
+      <p class="info-box">Hover cursor over plots for more details.</p>
       <h3 id="results-types">Types of criminal offenses</h3>
       <ol>
         <li><strong>What types of crime occur most frequently in different counties?</strong></li>
@@ -646,27 +667,28 @@
           significantly increase right after it. This might be due to some factors
           such as unemployment benefits.
         </p>
-        <img class="left-frame"
+        <img class="left-frame graph"
             src="plots/unemployment/benton_plot.png"
             alt="Plot of relationship between unemployment rate and rate of different crime types
                   in Benton county"
             width="45%" height="100%">
-        <img class="right-frame"
+        <img class="right-frame graph"
             src="plots/unemployment/king_plot.png"
             alt="Plot of relationship between unemployment rate and rate of different crime types
                   in King county"
             width="45%" height="100%">
-        <img class="left-frame"
+        <img class="left-frame graph"
             src="plots/unemployment/snohomish_plot.png"
             alt="Plot of relationship between unemployment rate and rate of different crime types
                   in Snohomish county"
             width="45%" height="100%">
-        <img class="right-frame"
+        <img class="right-frame graph"
             src="plots/unemployment/spokane_plot.png"
             alt="Plot of relationship between unemployment rate and rate of different crime types
                   in Spokane county"
             width="45%" height="100%">
-        <img src="plots/unemployment/yakima_plot.png"
+        <img class="graph"
+            src="plots/unemployment/yakima_plot.png"
             alt="Plot of relationship between unemployment rate and rate of different crime types
                   in Yakima county"
             width="45%" height="100%">
@@ -722,12 +744,12 @@
           The four line plots below provide more detailed information on the population density
           and crime rate change over time from 2012 to 2020 in King county and Pierce county.
         </p>
-        <img class=line-plot
+        <img class="line-plot graph"
             src="plots/pop/line_plot_pop_king_pierce.png"
             alt="Line plot of change in population density of King county and
                   Pierce county from 2012-2020"
             width="60%" height="100%">
-        <img class="line-plot"
+        <img class="line-plot graph"
             src="plots/pop/line_plot_crime_king_pierce.png"
             alt="Line plot of change in crime rate of King county and
                   Pierce county from 2012-2020"
@@ -744,19 +766,19 @@
 
         <li><strong>Which type of crime highly relates to population density?</strong></li>
         <br><br>
-        <img class="left-frame"
+        <img class="left-frame graph"
             src="plots/pop/bar_plot_king_crime.png"
             alt="Bar plot of most frequently reported crime types in King County"
             width="45%" height="100%">
-        <img class="right-frame"
+        <img class="right-frame graph"
             src="plots/pop/bar_plot_clark_crime.png"
             alt="Bar plot of most frequently reported crime types in Clark County"
             width="45%" height="100%">
-        <img class="left-frame"
+        <img class="left-frame graph"
             src="plots/pop/bar_plot_kitsap_crime.png"
             alt="Bar plot of most frequently reported crime types in King County"
             width="45%" height="100%">
-        <img class="right-frame"
+        <img class="right-frame graph"
             src="plots/pop/bar_plot_pierc_crime.png"
             alt="Bar plot of most frequently reported crime types in Clark County"
             width="45%" height="100%">
@@ -773,7 +795,7 @@
       </ol>
 
       <h2 id="impacts-and-limitations">Impacts & Limitations</h2>
-      <h3>Analysis of types of criminal offenses</h3>
+      <h3>Analysis of types of criminal offenses:</h3>
       <p>
         My results primarily showed that theft and assault are the most frequently reported types
         of crime in Washington state counties, and a higher proportion of offenses reported
@@ -803,7 +825,7 @@
         on more, and where.
       </p>
 
-      <h3>Analysis of unemployment rate</h3>
+      <h3>Analysis of unemployment rate:</h3>
       <p>
         We are exploring the relationship between unemployment rates and the crime occurrences
         without taking other factors into consideration. The results we get from this part
@@ -819,7 +841,7 @@
         more serious crime problems.
       </p>
 
-      <h3>Analysis of population density</h3>
+      <h3>Analysis of population density:</h3>
       <p>
         According to the graphs and analysis above, population density does not strongly relate
         to the crime rate. If the government wants to take some actions or create policies
@@ -886,18 +908,15 @@
       <h2 id="work-plan-eval">Work Plan</h2>
       <h3>Areas of Focus</h3>
       <ul>
-        <li>
-          <strong>Iris: </strong>
-          types of criminal offenses and crime rates for counties of varying population sizes
-        </li>
-        <li><strong>Katherine:</strong> unemployment rates and crime rates</li>
-        <li><strong>Caroline:</strong> population density and crime rates</li>
+        <li><strong>Iris: </strong> types of criminal offenses</li>
+        <li><strong>Katherine:</strong> unemployment rates</li>
+        <li><strong>Caroline:</strong> population density</li>
       </ul>
 
       <h3>Initial Work Plan</h3>
       <table>
         <tr>
-          <th></th>
+          <th>Stage</th>
           <th>Task</th>
           <th>Estimated time</th>
         </tr>
@@ -924,64 +943,68 @@
       </table>
 
       <h3>Post-project Work Plan Evaluation</h3><br>
-      <p>
-        <strong>Iris - Analyzing types of criminal offenses:</strong>
-        <br><br>
-        The initial work plan was planned out as a series of discrete steps, where we would first
-        clean the data, then spend a week just analyzing it, another week creating visualizations
-        (and figuring out how to use plotly), and finally wrapping it all up with the report.
-        I found that when I actually dove into the project, those steps all intertwine with
-        one another. I would produce a visualization to get a better picture of what the data
-        was saying. From that visualization, I might think of a new question or become curious
-        about something else, so I would then go back and pivot or clean the dataframe to explore
-        in that new direction. Adding all those time estimates together, the time to complete
-        the project as a whole was only slightly underestimated.
-      </p>
-      <p>
-        <strong>Katherine - Analyzing unemployment rate and crime rate:</strong>
-        <br><br>
-        I think the datasets we use and the method we apply are not enough to achieve our purpose,
-        since we forget there would be so many factors involved. For example, the crime rates
-        decline might be due to some helpful policies published, population size changes,
-        or education level improvement, instead of unemployment rates increase. I intended
-        to compare unemployment rates across countries with the crime rates across counties,
-        but I did not successfully figure out the best statistician to analyze the correlation.
-      </p>
-      <p>
-        <strong>Caroline - Analyzing population density and crime rate:</strong>
-        <br><br>
-        My actual time in doing this project was much longer than what I planned before.
-        The process of setting up the coding environment took me a long time due to some
-        technical difficulties I met. It took about 10 hours to generate the DataFrame
-        used in plotting the interactive scatter. I spent some time searching for the correct way
-        to reshape the DataFrame. The first time, I generated a wrong shaped DataFrame,
-        so I cannot plot the interactive scatter plot. Thus, I had to regenerate the DataFrame
-        from the beginning which took me a long time. And I also spent a long time writing
-        the test file. However, the time I planned on visualization and writing the final report
-        is close to the actual time.
-      </p>
+      <ul>
+        <li><strong>Iris - Analyzing types of criminal offenses:</strong></li>
+          <p>
+            The initial work plan was planned out as a series of discrete steps, where we would first
+            clean the data, then spend a week just analyzing it, another week creating visualizations,
+            and finally wrapping it all up with the report.
+            I found that when I actually dove into the project, those steps all intertwined with
+            one another. I would produce a visualization to get a better picture of what the data
+            was saying. From that visualization, I might think of a new question or become curious
+            about something else, so I would then go back and pivot or clean the dataframe to explore
+            in that new direction. Adding all those time estimates together, the time to complete
+            the project as a whole was only slightly underestimated.
+          </p>
+        <li><strong>Katherine - Analyzing unemployment rate and crime rate:</strong></li>
+          <p>
+            I think the datasets we use and the method we apply are not enough to achieve our purpose,
+            since we forget there would be so many factors involved. For example, the crime rates
+            decline might be due to some helpful policies published, population size changes,
+            or education level improvement, instead of unemployment rates increase. I intended
+            to compare unemployment rates across countries with the crime rates across counties,
+            but I did not successfully figure out the best statistician to analyze the correlation.
+          </p>
+        <li><strong>Caroline - Analyzing population density and crime rate:</strong></li>
+          <p>
+            My actual time in doing this project was much longer than what I planned before.
+            The process of setting up the coding environment took me a long time due to some
+            technical difficulties I met. It took about 10 hours to generate the DataFrame
+            used in plotting the interactive scatter. I spent some time searching for the correct way
+            to reshape the DataFrame. The first time, I generated a wrong shaped DataFrame,
+            so I cannot plot the interactive scatter plot. Thus, I had to regenerate the DataFrame
+            from the beginning which took me a long time. And I also spent a long time writing
+            the test file. However, the time I planned on visualization and writing the final report
+            is close to the actual time.
+          </p>
+      </ul>
 
       <h2 id="testing">Testing</h2>
-      <h3>Types of criminal offenses</h3>
-      <p>
-        The majority of my code generates interactive visualizations after merging and
-        filtering datasets, but some methods performed the initial cleaning and mutating
-        of the datasets. I created a few test functions on a small test dataset to test
-        that the mutated data frames contained the right values and had the right shapes
-        after being changed or pivoted. These tests used
-        <span style="font-family: 'Courier New'">assert_equals</span> statements to check
-        the values and the shape of the dataframes.
-      </p>
-
-      <h3>Population density</h3>
-      <p>
-        I created two small pieces of data for the population density and crime rate using
-        the list of dictionaries and converted them into DataFrames. I used
-        <span style="font-family: 'Courier New'">assert_equals</span>
-        to check if a specific entry or value is in the new DataFrame after applying
-        the method. I also created an interactive scatter plot and a bar plot in the test file
-        to check if the graphs did what I want based on the small DataFrame.
-      </p>
+      <ul>
+        <li><strong>Types of criminal offenses:</strong></li>
+        <ul>
+          <li>
+            The majority of my code generates interactive visualizations after merging and
+            filtering datasets, but some methods performed the initial cleaning and mutating
+            of the datasets. I created a few test functions on a small test dataset to test
+            that the mutated data frames contained the right values and had the right shapes
+            after being changed or pivoted. These tests used
+            <span style="font-family: 'Courier New'">assert_equals</span> statements to check
+            the values and the shape of the dataframes.
+          </li>
+        </ul>
+        <li><strong>Population density:</strong></li>
+        <ul>
+          <li>
+            I created two small pieces of data for the population density and crime rate using
+            the list of dictionaries and converted them into DataFrames. I used
+            <span style="font-family: 'Courier New'">assert_equals</span>
+            to check if a specific entry or value is in the new DataFrame after applying
+            the method. I also created an interactive scatter plot and a bar plot in the test file
+            to check if the graphs did what I want based on the small DataFrame.
+          </li>
+        </ul>
+      </ul>
     </article>
   </div>
 </body>

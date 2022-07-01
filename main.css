@@ -14,30 +14,32 @@ body {
 }
 
 #sidebar {
-  width: 20%;
-  height: 90%;
+  width: 16%;
+  height: 55%;
   padding: 15px;
   margin: 20px;
 
   border: 1px solid black;
-  /* border-radius: 8px; */
   background-color: white;
 
-  position: sticky;
-  top: 3%;
+  position: fixed;
+  left: 0;
+  top: 0;
 
   line-height: 1.5;
   font-weight: bold;
 }
 
-#contents {
-  width: 80%;
-  padding-left: 90px;
-  padding-right: 150px;
-  padding-top: 30px;
-  padding-bottom: 100px;
-  background-color: white;
-  border-left: 1px solid black;
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
 }
 
 .sidebar-ul {
@@ -45,10 +47,55 @@ body {
   padding-left: 25px;
 }
 
+#links {
+  width: 16%;
+  padding: 15px;
+
+  position: fixed;
+  bottom: 15px;
+  left: 0;
+}
+
+a.repo-link, a.repo-link:active, a.repo-link:visited {
+  text-decoration: none;
+
+  color:white;
+}
+
+a.repo-link:hover {
+  text-decoration: underline;
+}
+
+.repo-text {
+  margin: 5px;
+
+  font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+  font-weight: bolder;
+  font-size: 20px;
+  color:white;
+  text-decoration: none;
+}
+
+#contents {
+  width: 79%;
+  margin-left: 21%;
+
+  padding-left: 90px;
+  padding-right: 150px;
+  padding-top: 30px;
+  padding-bottom: 100px;
+  background-color: white;
+  border-left: 1px solid black;
+
+  position: static;
+  right: 0;
+}
+
 .results {
-  color: royalblue;
+  color: black;
+  background-color: #fafad2;
   padding: 8px;
-  border: 1px solid blue;
+  border: 1px solid black;
 }
 
 ol, ul, li {
@@ -57,12 +104,13 @@ ol, ul, li {
 }
 
 h1 {
-  font-size: 60px;
+  font-size: 65px;
   margin-bottom: 0;
 }
 
 h2 {
   margin-top: 60px;
+  font-size: 30px;
 }
 
 h3 {
@@ -78,7 +126,7 @@ h4 {
   font-weight: normal;
 }
 
-img {
+.graph {
   margin: 10px 2.5% 50px;
 
 }
@@ -105,11 +153,11 @@ img {
   margin-bottom: 0;
 }
 
-#info-box {
+.info-box {
   border: 1px solid black;
   border-radius: 10px;
   padding: 8px;
-  background-color: #faf0be;
+  background-color: #eee8aa;
   font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
 }
 
