@@ -15,6 +15,7 @@ The full project report can be viewed [here](https://iriszhou1.github.io/wa-crim
 * `matplotlib.pyplot`
 * `plotly`
     + If you do not already have `plotly` installed, run `pip install plotly==5.8.0` or `conda install -c plotly plotly=5.8.0 ` from your terminal in VSCode after opening the project folder.
+* `chart_studio`
 
 ## What to run:
 * To run analysis and generate visualizations:
